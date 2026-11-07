@@ -89,7 +89,7 @@ static int check_error_paths(pid_t child)
 
 	/* Read-only buffer */
 	ret = sys_ptrace(PTRACE_PEEKSIGINFO, child, &arg, addr_ro);
-	if (ret != -1 && errno != EFAULT) {
+	if (ret != -1 || errno != EFAULT) {
 		err("sys_ptrace() returns %d (expected -1),"
 				" errno %d (expected %d): %m\n",
 				ret, errno, EFAULT);
